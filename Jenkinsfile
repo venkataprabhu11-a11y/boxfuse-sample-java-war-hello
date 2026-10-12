@@ -1,5 +1,14 @@
 pipeline {
     agent any
+    
+     parameters {
+                choice(
+            name: 'ENVIRONMENT',
+            choices: ['DEV', 'QA', 'STAGING'],
+            description: 'Select deployment environment'
+        )
+
+     }
 
     stages {
         stage('git hub') {
@@ -16,6 +25,7 @@ pipeline {
         }
         stage('deploy') {
             steps {
+                echo "Deploying to ${params.ENVIRONMENT}"
                 echo 'deploying....'
                 sh 'mvn install'
             }
