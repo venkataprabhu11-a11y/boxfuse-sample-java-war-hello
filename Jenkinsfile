@@ -23,13 +23,27 @@ pipeline {
                 sh 'mvn compile'
             }
         }
-        stage('deploy') {
+        stage('Deploy') {
             steps {
-                echo "Deploying to ${params.ENVIRONMENT}"
-                echo 'deploying....'
-                sh 'mvn install'
+                script {
+                    echo "Selected environment: ${params.ENVIRONMENT}"
+
+                    if (params.ENVIRONMENT == 'DEV') {
+                        sh 'echo Deploying to DEV'
+                       
+                    } else if (params.ENVIRONMENT == 'QA') {
+                        sh 'echo Deploying to QA'
+                    
+                    } else if (params.ENVIRONMENT == 'STAGING') {
+                        sh 'echo Deploying to STAGING'
+                       
+                    } else {
+                        error "Invalid environment: ${params.ENVIRONMENT}"
+                    }
+                }
             }
         }
+                    
         stage('test') {
             steps {
                 echo 'testing'
