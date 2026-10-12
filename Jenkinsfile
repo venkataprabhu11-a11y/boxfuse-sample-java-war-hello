@@ -27,16 +27,16 @@ pipeline {
             steps {
                 script {
                     echo "Selected environment: ${params.ENVIRONMENT}"
-
+                  
                     if (params.ENVIRONMENT == 'DEV') {
                         sh 'echo Deploying to DEV'
-                       
+                        sh 'mvn clean package"
                     } else if (params.ENVIRONMENT == 'QA') {
                         sh 'echo Deploying to QA'
-                    
+                        sh 'mvn clean package"
                     } else if (params.ENVIRONMENT == 'STAGING') {
                         sh 'echo Deploying to STAGING'
-                       
+                        sh 'mvn clean package"
                     } else {
                         error "Invalid environment: ${params.ENVIRONMENT}"
                     }
